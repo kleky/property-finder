@@ -1,0 +1,7 @@
+{
+  "appId": "uk.klek.property",
+  "appName": "property",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
