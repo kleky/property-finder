@@ -7,7 +7,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 })
 export class MapComponent implements OnInit {
 
-  @ViewChild('gmap') gmapElement: any;
 
   constructor() { }
 
