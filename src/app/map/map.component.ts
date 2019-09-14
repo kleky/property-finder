@@ -5,189 +5,190 @@ import {Geolocation, Network} from '@capacitor/core';
 
 
 @Component({
-    selector: 'app-map',
-    templateUrl: './map.component.html',
-    styleUrls: ['./map.component.scss'],
+	selector: 'app-map',
+	templateUrl: './map.component.html',
+	styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
 
-    @Input('apiKey') apiKey: string;
+	@Input('apiKey') apiKey: string;
 
-    public map: any;
-    public markers: any[] = [];
-    private mapsLoaded = false;
-    private networkHandler = null;
+	public map: any;
+	public markers: any[] = [];
+	private mapsLoaded = false;
+	private networkHandler = null;
 
-    constructor(private renderer: Renderer2, private element: ElementRef, @Inject(DOCUMENT) private _document) {
+	constructor(private renderer: Renderer2, private element: ElementRef, @Inject(DOCUMENT) private _document) {
 
-    }
+	}
 
-    ngOnInit() {
+	ngOnInit() {
 
-        this.init().then((res) => {
-            console.log('Google Maps ready.');
-        }, (err) => {
-            console.log(err);
-        });
+		this.init().then((res) => {
+			console.log('Google Maps ready.');
+			this.addMarker(56.4837205, -2.8402026);
+		}, (err) => {
+			console.log(err);
+		});
 
-    }
+	}
 
-    private init(): Promise<any> {
+	private init(): Promise<any> {
 
-        return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 
-            this.loadSDK().then((res) => {
+			this.loadSDK().then((res) => {
 
-                this.initMap().then(() => {
-                    resolve(true);
-                }, (err) => {
-                    reject(err);
-                });
+				this.initMap().then(() => {
+					resolve(true);
+				}, (err) => {
+					reject(err);
+				});
 
-            }, (err) => {
+			}, (err) => {
 
-                reject(err);
+				reject(err);
 
-            });
+			});
 
-        });
+		});
 
-    }
+	}
 
-    private loadSDK(): Promise<any> {
+	private loadSDK(): Promise<any> {
 
-        console.log('Loading Google Maps SDK');
+		console.log('Loading Google Maps SDK');
 
-        return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 
-            if (!this.mapsLoaded) {
+			if (!this.mapsLoaded) {
 
-                Network.getStatus().then((status) => {
+				Network.getStatus().then((status) => {
 
-                    if (status.connected) {
+					if (status.connected) {
 
-                        this.injectSDK().then((res) => {
-                            resolve(true);
-                        }, (err) => {
-                            reject(err);
-                        });
+						this.injectSDK().then((res) => {
+							resolve(true);
+						}, (err) => {
+							reject(err);
+						});
 
-                    } else {
+					} else {
 
-                        if (this.networkHandler == null) {
+						if (this.networkHandler == null) {
 
-                            this.networkHandler = Network.addListener('networkStatusChange', (status) => {
+							this.networkHandler = Network.addListener('networkStatusChange', (status) => {
 
-                                if (status.connected) {
+								if (status.connected) {
 
-                                    this.networkHandler.remove();
+									this.networkHandler.remove();
 
-                                    this.init().then((res) => {
-                                        console.log('Google Maps ready.');
-                                    }, (err) => {
-                                        console.log(err);
-                                    });
+									this.init().then((res) => {
+										console.log('Google Maps ready.');
+									}, (err) => {
+										console.log(err);
+									});
 
-                                }
+								}
 
-                            });
+							});
 
-                        }
+						}
 
-                        reject('Not online');
-                    }
+						reject('Not online');
+					}
 
-                }, (err) => {
+				}, (err) => {
 
-                    // NOTE: navigator.onLine temporarily required until Network plugin has web implementation
-                    if (navigator.onLine) {
+					// NOTE: navigator.onLine temporarily required until Network plugin has web implementation
+					if (navigator.onLine) {
 
-                        this.injectSDK().then((res) => {
-                            resolve(true);
-                        }, (err) => {
-                            reject(err);
-                        });
+						this.injectSDK().then((res) => {
+							resolve(true);
+						}, (err) => {
+							reject(err);
+						});
 
-                    } else {
-                        reject('Not online');
-                    }
+					} else {
+						reject('Not online');
+					}
 
-                });
+				});
 
-            } else {
-                reject('SDK already loaded');
-            }
+			} else {
+				reject('SDK already loaded');
+			}
 
-        });
+		});
 
 
-    }
+	}
 
-    private injectSDK(): Promise<any> {
+	private injectSDK(): Promise<any> {
 
-        return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 
-            window["mapInit"] = () => {
-                this.mapsLoaded = true;
-                resolve(true);
-            };
+			window['mapInit'] = () => {
+				this.mapsLoaded = true;
+				resolve(true);
+			};
 
-            const script = this.renderer.createElement('script');
-            script.id = 'googleMaps';
+			const script = this.renderer.createElement('script');
+			script.id = 'googleMaps';
 
-            if (this.apiKey) {
-                script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
-            } else {
-                script.src = 'https://maps.googleapis.com/maps/api/js?callback=mapInit';
-            }
+			if (this.apiKey) {
+				script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
+			} else {
+				script.src = 'https://maps.googleapis.com/maps/api/js?callback=mapInit';
+			}
 
-            this.renderer.appendChild(this._document.body, script);
+			this.renderer.appendChild(this._document.body, script);
 
-        });
+		});
 
-    }
+	}
 
-    private initMap(): Promise<any> {
+	private initMap(): Promise<any> {
 
-        return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 
-            Geolocation.getCurrentPosition().then((position) => {
+			Geolocation.getCurrentPosition().then((position) => {
 
-                console.log(position);
+				console.log(position);
 
-                const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-                const mapOptions = {
-                    center: latLng,
-                    zoom: 15
-                };
+				const mapOptions = {
+					center: latLng,
+					zoom: 15
+				};
 
-                this.map = new google.maps.Map(this.element.nativeElement, mapOptions);
-                resolve(true);
+				this.map = new google.maps.Map(this.element.nativeElement, mapOptions);
+				resolve(true);
 
-            }, (err) => {
+			}, (err) => {
 
-                reject('Could not initialise map');
+				reject('Could not initialise map');
 
-            });
+			});
 
-        });
+		});
 
-    }
+	}
 
-    public addMarker(lat: number, lng: number): void {
+	public addMarker(lat: number, lng: number): void {
 
-        const latLng = new google.maps.LatLng(lat, lng);
+		const latLng = new google.maps.LatLng(lat, lng);
 
-        const marker = new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: latLng
-        });
+		const marker = new google.maps.Marker({
+			map: this.map,
+			animation: google.maps.Animation.DROP,
+			position: latLng
+		});
 
-        this.markers.push(marker);
+		this.markers.push(marker);
 
-    }
+	}
 
 
 }
