@@ -12,6 +12,8 @@ export interface Property {
   postCode: string;
   price: string;
   description: string;
+  lat: number;
+  lng: number;
 }
 
 @Injectable({
@@ -21,6 +23,10 @@ export class PropertyStateService {
   private scrapes = new BehaviorSubject<Property[]>(null);
 
   constructor(private scraperApiService: ScraperApiService) {}
+
+  get watchProperties(): BehaviorSubject<Property[]> {
+    return this.scrapes;
+  }
 
   public load(): Observable<Property[]> {
     return this.scraperApiService.getScrapes().pipe(
