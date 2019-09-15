@@ -6,6 +6,7 @@ import {tap} from 'rxjs/operators';
 export interface Property {
   ref: string;
   url: string;
+  imageUrl: string;
   address: string;
   propertyNumber: string;
   propertyType: string;
