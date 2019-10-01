@@ -31,7 +31,8 @@ export class PropertyStateService {
 
   public load(): Observable<Property[]> {
     return this.scraperApiService.getScrapes().pipe(
-      tap(p => this.scrapes.next(p))
+      tap(p => this.scrapes.next(p)),
+        tap(t => t.forEach(p => console.log(`${p.lat},${p.lng}`)))
     );
   }
 
