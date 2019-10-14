@@ -21,18 +21,16 @@ export interface Property {
   providedIn: 'root'
 })
 export class PropertyStateService {
-  private scrapes = new BehaviorSubject<Property[]>(null);
+  public allProperties = new BehaviorSubject<Property[]>([]);
 
   constructor(private scraperApiService: ScraperApiService) {}
 
-  get watchProperties(): BehaviorSubject<Property[]> {
-    return this.scrapes;
-  }
-
-  public load(): Observable<Property[]> {
+  public fetchProperties(): Observable<Property[]> {
     return this.scraperApiService.getScrapes().pipe(
-      tap(p => this.scrapes.next(p)),
-        tap(t => t.forEach(p => console.log(`${p.lat},${p.lng}`)))
+        tap(properties => {
+          this.allProperties.next(properties);
+          console.log(properties.length + ' properties fetched');
+        }),
     );
   }
 
