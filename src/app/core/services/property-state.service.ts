@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {ScraperApiService} from './scraper-api.service';
-import {tap} from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import {BehaviorSubject, Observable} from "rxjs";
+import {ScraperApiService} from "./scraper-api.service";
+import {tap} from "rxjs/operators";
 
 export interface Property {
   ref: string;
@@ -18,7 +18,7 @@ export interface Property {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PropertyStateService {
   public allProperties = new BehaviorSubject<Property[]>([]);
@@ -29,7 +29,7 @@ export class PropertyStateService {
     return this.scraperApiService.getScrapes().pipe(
         tap(properties => {
           this.allProperties.next(properties);
-          console.log(properties.length + ' properties fetched');
+          console.log(properties.length + " properties fetched");
         }),
     );
   }
