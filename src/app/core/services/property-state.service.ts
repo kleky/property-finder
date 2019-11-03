@@ -15,6 +15,9 @@ export interface Property {
   description: string;
   lat: number;
   lng: number;
+  dateAdded: string;
+
+  iconUrl: string;
 }
 
 @Injectable({
