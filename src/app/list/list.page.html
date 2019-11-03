@@ -4,24 +4,22 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      About
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Property Finder (Scotland)</ion-card-subtitle>
+      <ion-card-title>The Future</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      This app is hot off the press and contains only a fraction of the features to come, so, we need your
+      help in shaping the future so you get the most value first.
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
