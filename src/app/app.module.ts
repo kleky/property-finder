@@ -10,6 +10,9 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
+import {environment} from "../environments/environment";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFireAnalyticsModule} from "@angular/fire/analytics";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -18,6 +21,8 @@ import {HttpClientModule} from '@angular/common/http';
 		BrowserModule,
 		CoreModule,
 		IonicModule.forRoot(),
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		AngularFireAnalyticsModule,
 		AppRoutingModule,
 		HttpClientModule,
 	],
