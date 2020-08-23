@@ -3,6 +3,5 @@
     <string name="app_name">property-finder</string>
     <string name="title_activity_main">property-finder</string>
     <string name="package_name">uk.klek.property</string>
-    <string name="fileprovider_authority">uk.klek.property.fileprovider</string>
     <string name="custom_url_scheme">uk.klek.property</string>
 </resources>

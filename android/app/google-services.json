@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "803760880819",
+    "firebase_url": "https://property-finder-scotland.firebaseio.com",
+    "project_id": "property-finder-scotland",
+    "storage_bucket": "property-finder-scotland.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803760880819:android:4e5fa09cf94ab2605f04c6",
+        "android_client_info": {
+          "package_name": "uk.klek.property"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803760880819-5asl7vc2bkcjup7r1ti21i9jl55keqk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4OyIbPFzOsP078Fvv8lluWP-RAR7ZmfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803760880819-5asl7vc2bkcjup7r1ti21i9jl55keqk4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
