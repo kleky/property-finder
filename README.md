@@ -1,3 +1,11 @@
+# Development
+
+```shell
+npm i
+npm i -g @ionic/cli
+ionic serve
+```
+
 https://github.com/ionic-team/cordova-res
 
 resources/icon.png must be at least 1024×1024px
