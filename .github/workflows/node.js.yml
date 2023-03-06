@@ -26,6 +26,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --if-present
+    - run: npm run config && npm run build:prod --if-present
       env:
         FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+        GEOCODER_KEY: ${{ secrets.GEOCODER_KEY }}
+        AGM_API_KEY: ${{ secrets.AGM_API_KEY }}
+        S3_AWS_ACCESS_KEY_ID: ${{ secrets.S3_AWS_ACCESS_KEY_ID }}
+        S3_AWS_ACCESS_KEY_SECRET: ${{ secrets.S3_AWS_ACCESS_KEY_SECRET }}
