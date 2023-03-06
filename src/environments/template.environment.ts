@@ -9,6 +9,10 @@ export const environment = {
     messagingSenderId: "",
     appId: "",
     measurementId: ""
-  }
+  },
+  geocoderKey: "",
+  agmApiKey: "",
+  awsAccessKeyId: "",
+  awsSecretAccessKey: "",
 };
 

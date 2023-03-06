@@ -27,3 +27,5 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
+      env:
+        FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
