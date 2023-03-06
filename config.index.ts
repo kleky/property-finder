@@ -7,6 +7,7 @@ const envConfigFile = `export const environment = {
    firebase: {
         apiKey: '${process.env.FIREBASE_API_KEY}'
     },
+    geocoderKey: '${process.env.GEOCODER_KEY}'
 };
 `;
 
