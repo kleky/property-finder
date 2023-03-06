@@ -4,9 +4,7 @@ const targetPath = "./src/environments/environment.ts";
 
 const envConfigFile = `export const environment = {
    production: true,
-   firebaseConfig: {
-        apiKey: '${process.env.FIREBASE_API_KEY}',
-    },
+   firebaseConfig: ${process.env.FIREBASE_CONFIG},
     geocoderKey: '${process.env.GEOCODER_KEY}',
     agmApiKey: '${process.env.AGM_API_KEY}',
     awsAccessKeyId: '${process.env.S3_AWS_ACCESS_KEY_ID}',
