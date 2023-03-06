@@ -1,6 +1,6 @@
 import {writeFile} from "fs";
 
-const targetPath = "./src/environments/environment.prod.ts";
+const targetPath = "./src/environments/environment.ts";
 
 const envConfigFile = `export const environment = {
    production: true,
