@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-img class="header-img ion-float-right" src="../../assets/brand/vector/default-monochrome-black.svg"></ion-img>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <agm-map #map
+             [latitude]="mapCentre.lat"
+             [longitude]="mapCentre.lng"
+             [zoom]="16"
+             (mapClick)="closeOpenInfoWindows()"
+             (mapReady)="mapReady($event)"
+             (boundsChange)="boundsChange($event)"
+        >
+        <ion-button id="watchButton"
+                    [color]="watchMe ? 'dark' : 'light'"
+                    (click)="watchLocation(watchMe)">
+            <ion-icon [icon]="watchMe ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
+
+        <ion-button id="trackButton"
+                    [color]="trackMe ? 'dark' : 'light'"
+                    (click)="trackLocation(trackMe)">
+            <ion-icon icon="locate"></ion-icon>
+        </ion-button>
+
+        <ion-input id="mapSearch"
+                   type="text"
+                   placeholder="Search"
+                   size="15"
+                   inputmode="search"></ion-input>
+
+        <agm-marker *ngIf="watchMe || trackMe"
+                    [latitude]="userPosition.lat"
+                    [longitude]="userPosition.lng"
+                    animation="BOUNCE">
+            <agm-info-window>Your current position</agm-info-window>
+        </agm-marker>
+
+        <agm-marker *ngFor="let property of propertiesInBounds | async"
+                    [latitude]="property.lat"
+                    [longitude]="property.lng"
+                    (markerClick)="markerClick(infoWindow, property.imageUrl)"
+                    [iconUrl]="property.iconUrl"
+            ><agm-info-window #infoWindow>
+                <table>
+                    <tr>
+                        <td>
+                            <img [src]="infoWindowImageUrl" width="65px" height="65px" alt="Property image"/>
+                        </td>
+                        <td style="padding: 8px;">
+                            <em><strong>{{property.price}}</strong></em>
+                            <br/>
+                            <strong>{{property.address}}</strong>
+                            <p>
+                                {{property.description}}
+                            </p>
+                            <a style="padding: 2px;" [href]="getPropertyUrl(property)" target="_blank">Go to property</a>
+                        </td>
+                    </tr>
+                </table>
+            </agm-info-window>
+        </agm-marker>
+
+    </agm-map>
+
+</ion-content>
