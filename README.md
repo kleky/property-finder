@@ -1,3 +1,5 @@
+[![Node.js CI](https://github.com/kleky/property-finder/actions/workflows/node.js.yml/badge.svg?branch=master)](https://github.com/kleky/property-finder/actions/workflows/node.js.yml)
+
 # Development
 
 ```shell
