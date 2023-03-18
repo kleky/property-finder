@@ -1,0 +1,24 @@
+service: pf-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  region: eu-west-1
+  stage: dev
+  runtime: nodejs18.x
+
+constructs:
+  landing:
+    type: single-page-app
+    path: ../../www
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+plugins:
+  - serverless-lift
